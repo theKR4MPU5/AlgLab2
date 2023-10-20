@@ -1,0 +1,32 @@
+﻿<Window x:Class="AlgLab2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AlgLab2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800">
+    <Grid>
+        <DockPanel>
+            <!-- Верхняя часть: меню и элементы управления -->
+            <StackPanel DockPanel.Dock="Top" Margin="10">
+                <TextBlock Text="Выберите фрактал и укажите глубину:" Margin="0 0 0 10"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="triangleRadioButton" Content="Треугольник" Checked="RadioButton_Checked"/>
+                    <RadioButton x:Name="carpetRadioButton" Content="Ковер" Checked="RadioButton_Checked" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Глубина:" Width="60" VerticalAlignment="Center"/>
+                    <TextBox x:Name="depthTextBox" Width="50" Margin="5"/>
+                </StackPanel>
+
+                <Button Content="Отрисовать" Click="DrawButton_Click" Margin="5"/>
+            </StackPanel>
+
+            <!-- Центральная часть: область отрисовки фрактала -->
+            <Canvas x:Name="fractalCanvas" Grid.Row="1"/>
+        </DockPanel>
+    </Grid>
+</Window>
