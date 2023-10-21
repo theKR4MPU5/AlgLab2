@@ -1,0 +1,23 @@
+﻿<Window x:Class="HanoiTower.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HanoiTower"
+        mc:Ignorable="d"
+       Title="Main" Height="350" Width="320" Background="MediumSlateBlue"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Height="40" FontSize="35" HorizontalAlignment="Center" Margin="10,10,0 ,0"  Foreground="WhiteSmoke" Text="Ханойские Башни" RenderTransformOrigin="1.823,7.712" />
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Margin="10,10,0 ,0"  Foreground="WhiteSmoke" Text="Укажите скорость анимации:" RenderTransformOrigin="1.823,7.712" />
+            <Slider Name="SpeedSlider" Minimum="0.001" Maximum="20.0" Value="2" SmallChange="0.05" LargeChange="0.1" TickFrequency="0.5" TickPlacement="BottomRight"/>
+
+            <TextBlock Height="40" FontSize="25" HorizontalAlignment="Center" Margin="10,10,0 ,0"  Foreground="WhiteSmoke" Text="Введите кол-во колец:" VerticalAlignment="Top" RenderTransformOrigin="1.823,7.712" />
+
+            <TextBox MaxLength="2" BorderThickness="0" Name="RingCount" Height="40" Width="40" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10,10,0 ,0" Text="1" TextAlignment="Center" FontSize="24"/>
+            <Button FontSize="20" Content="Запуск" BorderThickness="0" Background="WhiteSmoke" Foreground="#3d3d3d" Height="30" Width="90" Click="Button_Click" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10,10,0 ,0"/>
+        </StackPanel>
+    </Grid>
+</Window>

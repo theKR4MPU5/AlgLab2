@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AlgLab2
+namespace FractalPrinter
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -42,22 +42,24 @@ namespace AlgLab2
 
         private void DrawButton_Click(object sender, RoutedEventArgs e)
         {
+
             int depth;
             if (int.TryParse(depthTextBox.Text, out depth))
             {
                 // Получить значение глубины из текстового поля
-
                 if (triangleRadioButton.IsChecked == true)
                 {
-                    FractalCanvas fractalCanvas = new FractalCanvas();
-                    fractalCanvas.DrawSierpinskiTriangle(new Point(400, 25), new Point(100, 425), new Point(700, 425), depth);
-                    Content = fractalCanvas;
+                    frame.Navigate(new ItemLocation1(depth, "triangle")) ;
+                    //FractalCanvas fractalCanvas = new FractalCanvas();
+                    //fractalCanvas.DrawSierpinskiTriangle(new Point(400, 25), new Point(100, 425), new Point(700, 425), depth);
+                    //Content = fractalCanvas;
                 }
                 else if (carpetRadioButton.IsChecked == true)
                 {
-                    FractalCanvas fractalCanvas = new FractalCanvas();
-                    fractalCanvas.DrawSierpinskiCarpet(depth, 150, 10, 500);
-                    Content = fractalCanvas;
+                    frame.Navigate(new ItemLocation1(depth, "carpet"));
+                    //FractalCanvas fractalCanvas = new FractalCanvas();
+                    //fractalCanvas.DrawSierpinskiCarpet(depth, 150, 10, 500);
+                    //Content = fractalCanvas;
                     
                 }
             }

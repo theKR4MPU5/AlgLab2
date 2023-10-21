@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AlgLab2.Properties
+namespace FractalPrinter.Properties
 {
 
 

@@ -4,10 +4,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Numerics;
 using System;
-using AlgLab2;
+using FractalPrinter;
 using System.Collections.Generic;
 
-namespace AlgLab2
+namespace FractalPrinter
 {
     public class FractalCanvas : Canvas
     {
