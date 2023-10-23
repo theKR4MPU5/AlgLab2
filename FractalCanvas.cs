@@ -4,10 +4,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Numerics;
 using System;
-using AlgLab2;
+using FractalPrinter;
 using System.Collections.Generic;
 
-namespace AlgLab2
+namespace FractalPrinter
 {
     public class FractalCanvas : Canvas
     {
@@ -56,7 +56,6 @@ namespace AlgLab2
             else
             {
                 double newSize = size / 3;
-                double newSize2 = 2 * newSize;
 
                 for (int i = 0; i < 3; i++)
                 {
