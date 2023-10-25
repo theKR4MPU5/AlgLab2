@@ -23,20 +23,19 @@ namespace HanoiTower
             InitializeComponent();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
-    {
-        var count = Int32.Parse(RingCount.Text);
-        if (count < 1 || count > 14)
         {
-            MessageBox.Show("Введите количество колец от 1 до 14");
-        }
-        else
-        {
-            Brush a = new Brush { RingsCount = Int32.Parse(RingCount.Text) };
-            Animation animation = new Animation(a, SpeedSlider.Value);
-            animation.ShowDialog();
+            var count = Int32.Parse(RingCount.Text);
+            if (count < 1 || count > 14)
+            {
+                MessageBox.Show("Введите количество колец от 1 до 14");
+            }
+            else
+            {
+                RingsSettings ringsConfig = new RingsSettings { Count = count };
+                Animation animation = new Animation(ringsConfig, SpeedSlider.Value);
+                animation.ShowDialog();
+            }
         }
     }
-
-        }
 }
 

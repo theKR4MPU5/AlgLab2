@@ -18,27 +18,28 @@ namespace HanoiTower;
 
 public partial class Animation
 {
-    //private const double speed = 2 * 0.15;
-    readonly int _countOfRings;
+    readonly RingsSettings ringsConfig;
     readonly List<Tuple<int, int>> _motion = new();
     double speed = 2 * 0.1;
 
-    public Animation(Brush help, double animationSpeed)
+    public Animation(RingsSettings ringsConfig, double animationSpeed)
     {
         InitializeComponent();
-        _countOfRings = help.RingsCount;
+        this.ringsConfig = ringsConfig;
         speed = 1/animationSpeed;
         Start();
     }
+
     private async void Start()
     {
         CreateArea();
-        HanoiTower(_countOfRings);
+        HanoiTower(ringsConfig.Count);
         foreach (var tuple in _motion)
         {
             await Move(tuple.Item1, tuple.Item2);
         }
     }
+
     private void HanoiTower(int n, int from = 0, int to = 1, int dest = 2)
     {
         if (n <= 0) return;
@@ -49,7 +50,8 @@ public partial class Animation
 
         HanoiTower(n - 1, dest, to, from);
     }
-    private void Anima(Rectangle rec, int to, DoubleAnimation leftAnimation, DoubleAnimation bottomAnimation)
+
+    private void Anima(Ellipse rec, int to, DoubleAnimation leftAnimation, DoubleAnimation bottomAnimation)
     {
         leftAnimation.From = Canvas.GetLeft(rec);
         bottomAnimation.From = Canvas.GetBottom(rec);
@@ -58,22 +60,22 @@ public partial class Animation
         {
             case 0:
                 leftAnimation.To = Canvas.GetLeft(Column1) + ((Column1.Width / 2) - (rec.Width / 2));
-                bottomAnimation.To = Canvas.GetBottom(Column1) + (Column1.Children.Count * Brush.RingHeight);
+                bottomAnimation.To = Canvas.GetBottom(Column1) + (Column1.Children.Count * RingsSettings.Height);
                 break;
             case 1:
                 leftAnimation.To = Canvas.GetLeft(Column2) + ((Column2.Width / 2) - rec.Width / 2);
-                bottomAnimation.To = Canvas.GetBottom(Column1) + (Column2.Children.Count * Brush.RingHeight);
+                bottomAnimation.To = Canvas.GetBottom(Column1) + (Column2.Children.Count * RingsSettings.Height);
                 break;
             case 2:
                 leftAnimation.To = Canvas.GetLeft(Column3) + (Column3.Width / 2 - rec.Width / 2);
-                bottomAnimation.To = Canvas.GetBottom(Column1) + (Column3.Children.Count * Brush.RingHeight);
+                bottomAnimation.To = Canvas.GetBottom(Column1) + (Column3.Children.Count * RingsSettings.Height);
                 break;
         }
         leftAnimation.Duration = TimeSpan.FromSeconds(speed);
         bottomAnimation.Duration = TimeSpan.FromSeconds(speed);
     }
 
-    private void RectangleCopy(Rectangle source, Rectangle copy, int sourceCol)
+    private void EllipseCopy(Ellipse source, Ellipse copy, int sourceCol)
     {
         copy.Fill = source.Fill;
         copy.Width = source.Width;
@@ -115,18 +117,18 @@ public partial class Animation
         DoubleAnimation leftAnimation = new DoubleAnimation();
         DoubleAnimation bottomAnimation = new DoubleAnimation();
 
-        Rectangle copy = new Rectangle();
-        Rectangle r = (Rectangle)fromCol.Children[^1];
+        Ellipse copy = new Ellipse();
+        Ellipse ring = (Ellipse)fromCol.Children[^1];
 
-        RectangleCopy(r, copy, from);
+        EllipseCopy(ring, copy, from);
         Anima(copy, to, leftAnimation, bottomAnimation);
-        fromCol.Children.Remove(r);
+        fromCol.Children.Remove(ring);
         MainCanvas.Children.Add(copy);
         copy.BeginAnimation(Canvas.LeftProperty, leftAnimation);
         copy.BeginAnimation(Canvas.BottomProperty, bottomAnimation);
-        Canvas.SetBottom(r, toCol.Children.Count * Brush.RingHeight);
+        Canvas.SetBottom(ring, toCol.Children.Count * RingsSettings.Height);
         await Task.Delay((int)(speed * 1000));
-        toCol.Children.Add(r);
+        toCol.Children.Add(ring);
         MainCanvas.Children.Remove(copy);
     }
 
@@ -136,18 +138,18 @@ public partial class Animation
         Column2.Children.Clear();
         Column3.Children.Clear();
 
-        int ringWidth = Brush.RingMinWidth;
-        for (int i = 0; i < _countOfRings; i++)
+        int ringWidth = RingsSettings.MaxWidth;
+        for (int ringNumber = 0; ringNumber < ringsConfig.Count; ringNumber++)
         {
-            Rectangle r = new Rectangle
+            Ellipse ring = new Ellipse
             {
-                Width = ringWidth - i * (Brush.Difference),
-                Height = Brush.RingHeight,
-                Fill = Brush.ColorBrash(Brush.Colors.ColorsList[i])
+                Width = ringWidth - ringNumber * (RingsSettings.Difference),
+                Height = RingsSettings.Height,
+                Fill = Brush.RingsBrusher(ringNumber)
             };
-            Canvas.SetLeft(r, 120 - r.Width / 2);
-            Canvas.SetBottom(r, r.Height * i);
-            Column1.Children.Add(r);
+            Canvas.SetLeft(ring, 120 - ring.Width / 2);
+            Canvas.SetBottom(ring, ring.Height * ringNumber);
+            Column1.Children.Add(ring);
         }
     }
 

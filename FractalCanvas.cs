@@ -56,7 +56,6 @@ namespace FractalPrinter
             else
             {
                 double newSize = size / 3;
-                double newSize2 = 2 * newSize;
 
                 for (int i = 0; i < 3; i++)
                 {
